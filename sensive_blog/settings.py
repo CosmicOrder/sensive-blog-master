@@ -22,9 +22,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'blog',
-]
+] + env.list('ADDITIONAL_APPS', [])
 
-MIDDLEWARE = [
+MIDDLEWARE = env.list('ADDITIONAL_MIDDLEWARE') + [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -33,6 +33,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+INTERNAL_IPS = ['127.0.0.1']
 
 ROOT_URLCONF = 'sensive_blog.urls'
 
