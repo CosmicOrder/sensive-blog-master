@@ -35,21 +35,21 @@ class PostQuerySet(models.QuerySet):
 
 class TagQuerySet(models.QuerySet):
     def popular(self):
-        tags = self.annotate(num_tags=Count('posts__tags'))
+        tags = self.annotate(num_tags=Count('posts__tags', distinct=True))
         popular_tags = tags.order_by('-num_tags')
         return popular_tags
 
-    # def fetch_with_posts_count(self):
-    #     tags_ids = [tag.id for tag in self]
-    #     tags_wth_posts = Tag.objects.filter(id__in=tags_ids) \
-    #                                 .annotate(num_posts=Count('posts'))
-    #     ids_and_tags = tags_wth_posts.values_list('id', 'num_posts')
-    #     count_for_id = dict(ids_and_tags)
-    #
-    #     for tag in self:
-    #         tag.num_posts = count_for_id[tag.id]
-    #
-    #     return list(self)
+    def fetch_with_posts_count(self):
+        tags_ids = [tag.id for tag in self]
+        tags_wth_posts = Tag.objects.filter(id__in=tags_ids) \
+                                    .annotate(num_posts=Count('posts'))
+        ids_and_tags = tags_wth_posts.values_list('id', 'num_posts')
+        count_for_id = dict(ids_and_tags)
+
+        for tag in self:
+            tag.num_posts = count_for_id[tag.id]
+
+        return list(self)
 
 
 class Post(models.Model):
