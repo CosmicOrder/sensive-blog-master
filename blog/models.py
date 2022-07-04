@@ -15,7 +15,7 @@ class PostQuerySet(models.QuerySet):
         return fresh_posts
 
     def popular(self):
-        posts = Post.objects.annotate(num_likes=Count('likes'))
+        posts = self.annotate(num_likes=Count('likes'))
         popular_posts = posts.order_by('-num_likes')
         return popular_posts
 
