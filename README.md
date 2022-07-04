@@ -35,8 +35,6 @@ python3 manage.py runserver
 - `SECRET_KEY` — секретный ключ проекта
 - `DATABASE_FILEPATH` — полный путь к файлу базы данных SQLite, например: `/home/user/schoolbase.sqlite3`
 - `ALLOWED_HOSTS` — см [документацию Django](https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts)
-- `ADDITIONAL_APPS` — список дополнительных приложений, которые используются в проекте. 
-В нашем случае туда надо добавить только `phonenumber_field`.
 
 ## Цели проекта
 
